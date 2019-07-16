@@ -8,6 +8,7 @@ from wtforms.validators import DataRequired, length, Email, Regexp, ValidationEr
 
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
+from app.validators.base import BaseForm as Form
 
 
 class ClientForm(Form):
