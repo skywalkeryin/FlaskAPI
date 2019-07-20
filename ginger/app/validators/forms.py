@@ -7,6 +7,7 @@ from wtforms import Form, StringField, IntegerField
 from wtforms.validators import DataRequired, length, Email, Regexp, ValidationError
 
 from app.libs.enums import ClientTypeEnum
+from app.models.base import db
 from app.models.user import User
 from app.validators.base import BaseForm as Form
 
@@ -35,4 +36,9 @@ class UserEmailForm(ClientForm):
 
     def validate_account(self, value):
         if User.query.filter_by(email=value.data).first():
-            raise ValidationError()
+            raise ValidationError("There already is a email in the system.")
+
+    def validate_nickname(self, value):
+        # ignore the status
+        if User.query.filter(User.nickname == value.data).first():
+            raise ValidationError("Please user another nickname.")

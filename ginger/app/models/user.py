@@ -5,6 +5,7 @@
 from sqlalchemy import Column, Integer, String, SmallInteger
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from app.libs.enums import ScopeTypeEnum
 from app.libs.error_code import NotFound, AuthFailed
 from app.models.base import Base, db
 
@@ -42,7 +43,9 @@ class User(Base):
         user = User.query.filter_by(email=email).first_or_404()
         if not user.check_password(password):
             raise AuthFailed()
-        return {'uid': user.id}
+        # get scope name based on the auth value
+        scope = ScopeTypeEnum(user.auth).name
+        return {'uid': user.id, 'scope': scope}
 
     def check_password(self, raw):
         if not self._password:

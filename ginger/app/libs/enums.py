@@ -4,6 +4,10 @@
 
 from enum import Enum
 
+class ScopeTypeEnum(Enum):
+    AdminScope = 1
+    SuperAdminScope = 2
+
 
 class ClientTypeEnum(Enum):
     USER_EMAIL = 100
