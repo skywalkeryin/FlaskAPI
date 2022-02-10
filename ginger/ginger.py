@@ -21,6 +21,7 @@ def framework_error(e):
         return APIException(msg, code, error_code)
     else:
         #log
+        # test
         if not app.config['DEBUG']:
             return ServerError()
         else:
